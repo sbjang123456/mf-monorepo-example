@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import federation from "@originjs/vite-plugin-federation";
+import { federation } from "@module-federation/vite";
 import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
@@ -9,10 +9,24 @@ export default defineConfig({
     federation({
       name: "host",
       remotes: {
-        remoteProducts: "http://localhost:3001/assets/remoteEntry.js",
-        remoteUsers: "http://localhost:3002/assets/remoteEntry.js",
+        remoteProducts: {
+          type: "module",
+          name: "remoteProducts",
+          entry: "http://localhost:3001/mf-manifest.json",
+          entryGlobalName: "remoteProducts",
+        },
+        remoteUsers: {
+          type: "module",
+          name: "remoteUsers",
+          entry: "http://localhost:3002/mf-manifest.json",
+          entryGlobalName: "remoteUsers",
+        },
       },
-      shared: ["react", "react-dom", "react-router-dom"],
+      shared: {
+        react: { singleton: true },
+        "react-dom": { singleton: true },
+        "react-router-dom": { singleton: true },
+      },
     }),
   ],
   resolve: {
@@ -28,7 +42,7 @@ export default defineConfig({
   },
   build: {
     modulePreload: false,
-    target: "esnext",
+    target: "chrome89",
     minify: false,
     cssCodeSplit: false,
   },
@@ -36,5 +50,7 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     cors: true,
+    origin: "http://localhost:3000",
   },
+  base: "http://localhost:3000",
 });

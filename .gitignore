@@ -7,6 +7,7 @@ dist
 build
 .turbo
 *.tsbuildinfo
+.__mf__temp
 
 # IDE
 .idea
