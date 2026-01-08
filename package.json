@@ -1,0 +1,25 @@
+{
+  "name": "mf-monorepo-example",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "clean": "turbo clean && rm -rf node_modules",
+    "dev:host": "turbo dev --filter=host",
+    "dev:products": "turbo dev --filter=remote-products",
+    "dev:users": "turbo dev --filter=remote-users",
+    "dev:all": "turbo dev --parallel",
+    "preview": "turbo preview",
+    "start": "pnpm build && pnpm preview"
+  },
+  "devDependencies": {
+    "@types/node": "~25.0.3",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
