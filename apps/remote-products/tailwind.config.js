@@ -1,17 +1,12 @@
+import sharedPreset from "../../packages/shared/tailwind.preset.js";
+
 /** @type {import('tailwindcss').Config} */
 export default {
+  presets: [sharedPreset],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "../../packages/ui/src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Pretendard', 'system-ui', 'sans-serif'],
-      },
-    },
-  },
   plugins: [],
 };
-
